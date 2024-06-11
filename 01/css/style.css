@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap');
+
+body {
+    padding: 0px 5%;
+}
+
+.main-font {
+    font-family: "Rubik Bubbles", system-ui;
+    font-weight: 400;
+    font-style: normal;   
+
+    font-size: 70px;
+}
+
+a {
+    color: brown;
+    text-decoration: none;
+}
+
+a:not(:hover) {
+    animation-name: uAH;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    opacity: 100%;
+}
+
+a:hover {
+    opacity: 20%;
+    animation-name: aH;
+    animation-duration: 1s;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+}
+
+@keyframes uAH {
+    to {
+        opacity: 100%;
+        border-radius: 50%;
+    }
+
+    from {
+        opacity: 20%;
+        border-radius: 0%;
+        }
+}
+
+@keyframes aH {
+    from {
+        opacity: 100%;
+    }
+    to {
+        opacity: 20%;
+    }
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.CGSGButton {
+    background-color: #eee0f0;
+    border: solid 1px black;
+    border-radius: 80px;
+    box-shadow: inset 4px 4px 12px #bf72bc,
+                6px 0px 20px #bf72bc;
+    width: 75%;
+    height: 80%;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.wrapper {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+#h_wrapper {
+    background-color: rgb(190, 20, 50);    
+    width: 100%;
+    border-width: 1px;
+    border-radius: 8px;
+}
+
+header {
+    text-align: center;
+    border-radius: 8px;
+}
+
+header>h1 {
+    font-size: small;
+    font-family: "Lilita One", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+
+}
+
+nav {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(255, 120, 100);
+}
+
+nav>ul {
+    width: 60%;
+}
+
+nav>ul>a {
+    font-size: 90px;
+}
+
+#m_wrapper {
+    margin: 0;
+    padding: 10% 10%;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid black;
+    border-width: 1px;
+    border-radius: 8px;
+    background-color: rgb(250, 200, 90, 0.4);
+}
+
+#main_wrapper {
+    padding: 2% 10%;
+    background-color: pink;
+}
+
+body {
+    background-color: pink;
+}

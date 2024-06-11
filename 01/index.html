@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <script type="module">
+        import * as render from "./main.js"
+    </script>
+
+    <div class="wrapper" id="main_wrapper"">
+        <div>
+            <a href="../index.html" class="main-font">Go Back</a>
+        </div>
+        <div id="h_wrapper" class="wrapper" style="border: 2px solid black;" title="ITS UKRAINE FLAG, JUST BLUE AND YELLOW. I LOVE PUTIN !!!!!!!! ZXC ZXC ZXC ZXC ZXC 52 52 52 52 52 A4 A4 A4">
+            <header>
+                <h1 style="font-size: 30px;"> FRACTAL </h1>    
+            </header>
+            <nav>
+                <ul style="text-decoration: none; list-style: none;">
+                    <li style="text-align: center;">
+                        <a target="_blank" title="link to my githhub" href="https://github.com/Jedai220/">my github</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div id="m_wrapper" class="wrapper">
+            <div class="CGSGButton" style="display: flex; flex-direction: column; margin-left: 4%;" class="wrapper">
+                <canvas style="border: 3px solid brown;" width="600px" id="myCan" height="600px" title="FRACTAL here" style="background-color: rgba(0, 0, 0, 0);">
+                    <script type="module">
+                        import * as vigl from "./main.js";
+                        window.addEventListener("load", () => {
+                            vigl.initGL();
+                            const draw = () => {
+                                vigl.render();
+
+                                window.requestAnimationFrame(draw);
+                            }
+                            draw();
+                        });
+                    </script>
+                </canvas>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

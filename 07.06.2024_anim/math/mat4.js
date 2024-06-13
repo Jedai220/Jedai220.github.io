@@ -2,31 +2,6 @@
 export default class mat4 {
   constructor(a1, a2, a3, a4, b1, b2, b3, b4, c1, c2, c3, c4, d1, d2, d3, d4) {
     this.isMatrix = true;
-    if (
-      a1 == undefined ||
-      a2 == undefined ||
-      a3 == undefined ||
-      a4 == undefined ||
-      b1 == undefined ||
-      b2 == undefined ||
-      b3 == undefined ||
-      b4 == undefined ||
-      c1 == undefined ||
-      c2 == undefined ||
-      c3 == undefined ||
-      c4 == undefined ||
-      d1 == undefined ||
-      d2 == undefined ||
-      d3 == undefined ||
-      d4 == undefined
-    ) {
-      this.M = [
-        [1, 0, 0, 0],
-        [0, 1, 0, 0],
-        [0, 0, 1, 0],
-        [0, 0, 0, 1],
-      ];
-    } else {
       this.M = [
         [a1, a2, a3, a4],
         [b1, b2, b3, b4],
@@ -34,11 +9,10 @@ export default class mat4 {
         [d1, d2, d3, d4],
       ];
     }
-  }
-
+  
   // multiple 4 x 4  function
-  mat4MulMat4() {
-    let a = localMat4MulMat4(arguments);
+  mat4MulMat4(b, c) {
+    let a = localMat4MulMat4(b, c);
     return a;
   }
 
@@ -69,100 +43,71 @@ export default class mat4 {
 /** Local matrix function description **/
 
 // create matrix function
-mat4.prototype.newMat4 = (args) => {
-  try {
+mat4.prototype.newMat4 = (a) => {
+    if (typeof a[0] == 'undefined') {
+      return localMatrixIdentity();
+    }
     return new mat4(
-        args[0], args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10], args[11], args[12], args[13], args[14], args[15] 
+      a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15]            
     );
-  } catch (err) {
-    return localMatrixIdentity();
-  }
 }; // end of 'localMat4' function
 
 // multiple matrix function
-function localMat4MulMat4() {
-  if (
-    typeof arguments[0][0] != "object" ||
-    typeof arguments[0][1] != "object" ||
-    arguments[0][0].isMatrix != true ||
-    arguments[0][1].isMatrix != true ||
-    typeof arguments[0][0].M[0][0] == "undefined" ||
-    typeof arguments[0][1].M[0][0] == "undefined"
-  ) {
-    console.log("EXCEPTION!!! multiple matrix");
-    return;
-  }
+function localMat4MulMat4(a, b) {
+  
+  let m = new mat4();
 
-  let b = arguments[0][0],
-    a = arguments[0][1];
+  m.M[0][0] = a.M[0][0] * b.M[0][0] + a.M[0][1] * b.M[1][0] + a.M[0][2] * b.M[2][0] +
+    a.M[0][3] * b.M[3][0];
 
-  console.log("matrix mul matrix passed the test");
-  return new mat4(
-    a.M[0][0] * b.M[0][0] +  
-      a.M[0][1] * b.M[1][0] +
-      a.M[0][2] * b.M[2][0] +
-      a.M[0][3] * b.M[3][0], 
-    a.M[0][0] * b.M[0][1] +  
-      a.M[0][1] * b.M[1][1] +
-      a.M[0][2] * b.M[2][1] +
-      a.M[0][3] * b.M[3][1],
-    a.M[0][0] * b.M[0][2] +
-      a.M[0][1] * b.M[1][2] +
-      a.M[0][2] * b.M[2][2] +
-      a.M[0][3] * b.M[3][2],
-    a.M[0][0] * b.M[0][3] +
-      a.M[0][1] * b.M[1][3] +
-      a.M[0][2] * b.M[2][3] +
-      a.M[0][3] * b.M[3][3],
-    a.M[1][0] * b.M[0][0] +
-      a.M[1][1] * b.M[1][0] +
-      a.M[1][2] * b.M[2][0] +
-      a.M[1][3] * b.M[3][0],
-    a.M[1][0] * b.M[0][1] +
-      a.M[1][1] * b.M[1][1] +
-      a.M[1][2] * b.M[2][1] +
-      a.M[1][3] * b.M[3][1],
-    a.M[1][0] * b.M[0][2] +
-      a.M[1][1] * b.M[1][2] +
-      a.M[1][2] * b.M[2][2] +
-      a.M[1][3] * b.M[3][2],
-    a.M[1][0] * b.M[0][3] +
-      a.M[1][1] * b.M[1][3] +
-      a.M[1][2] * b.M[2][3] +
-      a.M[1][3] * b.M[3][3],
-    a.M[2][0] * b.M[0][0] +
-      a.M[2][1] * b.M[1][0] +
-      a.M[2][2] * b.M[2][0] +
-      a.M[2][3] * b.M[3][0],
-    a.M[2][0] * b.M[0][1] +
-      a.M[2][1] * b.M[1][1] +
-      a.M[2][2] * b.M[2][1] +
-      a.M[2][3] * b.M[3][1],
-    a.M[2][0] * b.M[0][2] +
-      a.M[2][1] * b.M[1][2] +
-      a.M[2][2] * b.M[2][2] +
-      a.M[2][3] * b.M[3][2],
-    a.M[2][0] * b.M[0][3] +
-      a.M[2][1] * b.M[1][3] +
-      a.M[2][2] * b.M[2][3] +
-      a.M[2][3] * b.M[3][3],
-    a.M[3][0] * b.M[0][0] +
-      a.M[3][1] * b.M[1][0] +
-      a.M[3][2] * b.M[2][0] +
-      a.M[3][3] * b.M[3][0],
-    a.M[3][0] * b.M[0][1] +
-      a.M[3][1] * b.M[1][1] +
-      a.M[3][2] * b.M[2][1] +
-      a.M[3][3] * b.M[3][1],
-    a.M[3][0] * b.M[0][2] +
-      a.M[3][1] * b.M[1][2] +
-      a.M[3][2] * b.M[2][2] +
-      a.M[3][3] * b.M[3][2],
-    a.M[3][0] * b.M[0][3] +
-      a.M[3][1] * b.M[1][3] +
-      a.M[3][2] * b.M[2][2] +
-      a.M[3][3] * b.M[3][3]
-  );
+  m.M[0][1] = a.M[0][0] * b.M[0][1] + a.M[0][1] * b.M[1][1] + a.M[0][2] * b.M[2][1] +
+    a.M[0][3] * b.M[3][1];
+
+  m.M[0][2] = a.M[0][0] * b.M[0][2] + a.M[0][1] * b.M[1][2] + a.M[0][2] * b.M[2][2] +
+    a.M[0][3] * b.M[3][2];
+
+  m.M[0][3] = a.M[0][0] * b.M[0][3] + a.M[0][1] * b.M[1][3] + a.M[0][2] * b.M[2][3] +
+    a.M[0][3] * b.M[3][3];
+
+  m.M[1][0] = a.M[1][0] * b.M[0][0] + a.M[1][1] * b.M[1][0] + a.M[1][2] * b.M[2][0] +
+    a.M[1][3] * b.M[3][0];
+
+  m.M[1][1] = a.M[1][0] * b.M[0][1] + a.M[1][1] * b.M[1][1] + a.M[1][2] * b.M[2][1] +
+    a.M[1][3] * b.M[3][1];
+
+  m.M[1][2] = a.M[1][0] * b.M[0][2] + a.M[1][1] * b.M[1][2] + a.M[1][2] * b.M[2][2] +
+    a.M[1][3] * b.M[3][2];
+
+  m.M[1][3] = a.M[1][0] * b.M[0][3] + a.M[1][1] * b.M[1][3] + a.M[1][2] * b.M[2][3] +
+    a.M[1][3] * b.M[3][3];
+
+
+  m.M[2][0] = a.M[2][0] * b.M[0][0] + a.M[2][1] * b.M[1][0] + a.M[2][2] * b.M[2][0] +
+    a.M[2][3] * b.M[3][0];
+
+  m.M[2][1] = a.M[2][0] * b.M[0][1] + a.M[2][1] * b.M[1][1] + a.M[2][2] * b.M[2][1] +
+    a.M[2][3] * b.M[3][1];
+
+  m.M[2][2] = a.M[2][0] * b.M[0][2] + a.M[2][1] * b.M[1][2] + a.M[2][2] * b.M[2][2] +
+    a.M[2][3] * b.M[3][2];
+
+  m.M[2][3] = a.M[2][0] * b.M[0][3] + a.M[2][1] * b.M[1][3] + a.M[2][2] * b.M[2][3] +
+    a.M[2][3] * b.M[3][3];
+
+
+  m.M[3][0] = a.M[3][0] * b.M[0][0] + a.M[3][1] * b.M[1][0] + a.M[3][2] * b.M[2][0] +
+    a.M[3][3] * b.M[3][0];
+
+  m.M[3][1] = a.M[3][0] * b.M[0][1] + a.M[3][1] * b.M[1][1] + a.M[3][2] * b.M[2][1] +
+    a.M[3][3] * b.M[3][1];
+
+  m.M[3][2] = a.M[3][0] * b.M[0][2] + a.M[3][1] * b.M[1][2] + a.M[3][2] * b.M[2][2] +
+    a.M[3][3] * b.M[3][2];
+
+  m.M[3][3] = a.M[3][0] * b.M[0][3] + a.M[3][1] * b.M[1][3] + a.M[3][2] * b.M[2][3] +
+    a.M[3][3] * b.M[3][3];
+
+    return m;
 } // end of 'localMat4MulMat4' function.
 
 // matrix transpose function
@@ -302,7 +247,10 @@ function localMat4Inv(a) {
 
   let r = new mat4();
 
-  if (det == 0) return localMatrixIdentity();
+  if (det == 0) {
+    console.assert("ERROR");
+    return a;
+  }
 
   /* build adjoint matrix */
   r.M[0][0] =
@@ -516,20 +464,16 @@ function localMat4Inv(a) {
   return r;
 } // end of 'localMat4Inv' function
 
-// rotate z axis function
-function localMat4RotateZ(a) {
-  let c = Math.cos(a),
-    s = Math.sin(a);
-
-  return localMat4(c, s, 0, 0, -s, c, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0);
-} //end of 'localMat4RotateZ' function
-
 // rotate x axis function
 mat4.prototype.rotateX = (a) => {
   let c = Math.cos(a),
     s = Math.sin(a);
 
-  return localMat4(1, 0, 0, 0, c, s, 0, 0, -s, c, 0, 0, 0, 0, 0, 1);
+  return new mat4(
+    1, 0, 0, 0,
+    0, c, s, 0,
+    0, -s, c, 0,
+    0, 0, 0, 1);
 } //end of 'localMat4RotateX' function
 
 // rotate y axis function

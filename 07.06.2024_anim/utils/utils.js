@@ -2,7 +2,7 @@ export function toArray(notArray) {
   if (Array.isArray(notArray)) {
       return;
   }
-  let newArray = new Array;
+  let newArray = new Array();
   
   let index = 0;
   if (notArray.isMatrix) {

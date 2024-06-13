@@ -26,7 +26,7 @@ export default class vec3{
 }
 
 // vec3 using variable
-let def3 =  new vec3;
+let def3 =  new vec3();
 
 // 3d vector create prototype function
 vec3.prototype.newVec3 = (a, b, c) => {
@@ -94,7 +94,6 @@ vec3.prototype.vec3Norm = (a) => {
         console.log("EXCEPTION!!! vec3 norm (2).");
         return;
     }    
-
     let len = def3.vec3Mul(a, a);
     if (len == 1 || len == 0)
         return a;
@@ -108,7 +107,11 @@ vec3.prototype.vec3Cross = (a, b) => {
         return;
     }
 
-    return def3.newVec3(a.vec3.y * b.vec3.z - a.vec3.z * b.vec3.y, -(a.vec3.x * b.vec3.z - a.vec3.z * b.vec3.x), a.vec3.x * b.vec3.y - a.vec3.y * b.vec3.x);
+    return def3.newVec3(
+        a.vec3.y * b.vec3.z - a.vec3.z * b.vec3.y,
+        -(a.vec3.x * b.vec3.z - a.vec3.z * b.vec3.x),
+        a.vec3.x * b.vec3.y - a.vec3.y * b.vec3.x
+    );
 } // end of 'vec3Cross' prototype function
 
 console.log("vec.js complete");

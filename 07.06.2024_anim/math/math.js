@@ -34,10 +34,11 @@ mat4.prototype.rotateA = (v, a) => {
     }
     
     try {
+        v = def3.vec3Norm(v);
         let c = Math.cos(D2R(a));
         let s = Math.sin(D2R(a));
         return Mat4((c + v.vec3.x * v.vec3.x * (1 - c)), (v.vec3.x * v.vec3.y * (1 - c) - v.vec3.z * s), (v.vec3.x * v.vec3.z * (1 - c) + v.vec3.y * s), 0,
-                                    (v.vec3.x * v.vec3.y * (1 - c) + v.vec3.z * s), (c + v.vec3.y * v.vec3.y * v.vec3.y * (c - 1)), (v.vec3.y * v.vec3.z * (1 - c) - v.vec3.x * s), 0,
+                                    (v.vec3.x * v.vec3.y * (1 - c) + v.vec3.z * s), (c + v.vec3.y * v.vec3.y * v.vec3.y * (1 - c)), (v.vec3.y * v.vec3.z * (1 - c) - v.vec3.x * s), 0,
                                     (v.vec3.x * v.vec3.z * (1 - c) - v.vec3.y * s), (v.vec3.y * v.vec3.z * (1 - c) + v.vec3.x * s), (c + v.vec3.z * v.vec3.z * (1 - c)), 0,
                                     0, 0, 0, 1);
     } catch (error) {
@@ -55,9 +56,9 @@ mat4.prototype.matView = (loc, at, u1) => {
         return Mat4(Right.vec3.x, Up.vec3.x, -Dir.vec3.x, 0.0,
                     Right.vec3.y, Up.vec3.y, -Dir.vec3.y, 0.0,
                     Right.vec3.z, Up.vec3.z, -Dir.vec3.z, 0.0,
-                    -vector.vec3Mul(loc, Right), -vector.vec3Mul(loc, Up), vector.vec3Mul(loc, Dir), 1.0);
+                    -vector.vec3Mul(loc, Right), -vector.vec3Mul(loc, Up), vector.vec3Mul(loc, Dir), 1);
     } catch (error) {
-        console.log("EXCEPTION!!! matrOrtho");        
+        console.log("EXCEPTION!!! matView");        
     }
 } // end of 'matView' function
 
@@ -66,7 +67,7 @@ mat4.prototype.matOrtho = (l, r, b, t, n, f) => {
     return Mat4(2.0 / (r - l), 0.0, 0.0, 0.0,
                 0.0, 2.0 / (t - b), 0.0, 0.0,
                 0.0, 0.0, -2.0 / (f - n), 0.0,
-                0.0, 0.0, -(f + n) / (f - n), 1.0);
+                -(r + l) / (r - l), -(t + b) / (t - b), -(f + n) / (f - n), 1.0);
 } // end of 'matOrtho' function
 
 // matrix view prototype function
@@ -74,7 +75,7 @@ mat4.prototype.matFrustum = (l, r, b, t, n, f) => {
     try {
         return Mat4((2.0 * n) / (r - l), 0.0, 0.0, 0.0,
                     0.0, (2.0 * n) / (t - b), 0.0, 0.0,
-                    (r + l) / (r - l), (t + b) / (t - b), (-((f + n) / (f - n))), -1.0,
+                    (r + l) / (r - l), (t + b) / (t - b), (-((f + n) / (f - n))), (-1.0),
                     0.0, 0.0, (-((2.0 * n * f) / (f - n))), 0.0);
     } catch (error) {
         console.log("EXCEPTION!!! mtFrustum");        
